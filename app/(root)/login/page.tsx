@@ -85,6 +85,7 @@ function LoginWithParams() {
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   
   // Use the imported useSearchParams hook
   const searchParams = useSearchParams();
@@ -222,8 +223,8 @@ function LoginWithParams() {
         <div className="text-center mt-4">
           <p className="text-sm text-green-300">Or login with:</p>
           <div className="mt-2">
-          {process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ? (
-            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+          {googleClientId ? (
+            <GoogleOAuthProvider clientId={googleClientId}>
               <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError("Google Login Failed")} />
             </GoogleOAuthProvider>
             ) : (

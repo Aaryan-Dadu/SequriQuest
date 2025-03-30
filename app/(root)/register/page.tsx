@@ -15,6 +15,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -194,7 +195,7 @@ export default function Register() {
           <div className="text-center mt-4">
             <p className="text-sm text-green-300">Or register with:</p>
             <div className="mt-2">
-              <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+              <GoogleOAuthProvider clientId={googleClientId || ""}>
                 <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError("Google Registration Failed")} />
               </GoogleOAuthProvider>
             </div>

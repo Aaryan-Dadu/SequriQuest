@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     const response = NextResponse.json({ success: true, message: "Login successful" });
     response.headers.set(
       "Set-Cookie",
-      `jwt=${jwtToken}; HttpOnly; Secure; Path=/; Max-Age=${7 * 24 * 60 * 60}`
+      `token=${jwtToken}; HttpOnly; Secure; Path=/; Max-Age=${7 * 24 * 60 * 60}; jwt=`
     );
 
     return response;
