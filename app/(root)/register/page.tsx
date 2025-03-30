@@ -6,7 +6,7 @@ import "../../styles/blink.css";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/navigation";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-
+import { CredentialResponse } from "@react-oauth/google";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -94,7 +94,7 @@ export default function Register() {
     }
   };
 
-  const handleGoogleSuccess = async (response: any) => {
+  const handleGoogleSuccess = async (response: CredentialResponse) => {
     try {
       const res = await fetch("/api/auth/google", {
         method: "POST",
@@ -110,7 +110,7 @@ export default function Register() {
         setError("Google registration failed");
       }
     } catch (error) {
-      setError("An error occurred with Google registration");
+      console.log("An error occurred with Google registration", error);
     }
   };
 

@@ -45,6 +45,10 @@ export async function POST(request: Request) {
       user = await db.collection("users").findOne({ email });
     }
 
+    if (!user) {
+      throw new Error("User not found");
+    }
+    
     const jwtToken = jwt.sign({ id: user._id, email: user.email, team_name: user.team_name }, process.env.JWT_SECRET!, {
       expiresIn: "7d",
     });

@@ -6,6 +6,7 @@ import "../../styles/blink.css";
 import Footer from "@/components/Footer";
 import { useRouter, useSearchParams } from "next/navigation";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse } from "@react-oauth/google";
 
 // Create a separate component for the parts that use useSearchParams
 interface LoginFormProps {
@@ -160,7 +161,7 @@ function LoginWithParams() {
     }
   };
 
-  const handleGoogleSuccess = async (response: any) => {
+  const handleGoogleSuccess = async (response: CredentialResponse) => {
     setLoading(true);
     setError("");
     try {
@@ -179,7 +180,7 @@ function LoginWithParams() {
         setError(data?.message || "Google login failed");
       }
     } catch (error) {
-      setError("An error occurred with Google login");
+      console.log("An error occurred with Google login", error);
     } finally {
       setLoading(false);
     }
