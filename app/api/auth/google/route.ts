@@ -35,6 +35,8 @@ export async function POST(request: Request) {
       await db.collection("users").insertOne({
         name,
         email,
+        team_name: name,
+        username: name,
         password: hashedPassword, // Store hashed Google ID as password
         isGoogleAuth: true,
         created_at: new Date(),
@@ -43,7 +45,7 @@ export async function POST(request: Request) {
       user = await db.collection("users").findOne({ email });
     }
 
-    const jwtToken = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET!, {
+    const jwtToken = jwt.sign({ id: user._id, email: user.email, team_name: user.team_name }, process.env.JWT_SECRET!, {
       expiresIn: "7d",
     });
 
