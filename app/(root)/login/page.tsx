@@ -161,6 +161,8 @@ function LoginWithParams() {
   };
 
   const handleGoogleSuccess = async (response: any) => {
+    setLoading(true);
+    setError("");
     try {
       const res = await fetch("/api/auth/google", {
         method: "POST",
@@ -170,13 +172,16 @@ function LoginWithParams() {
       });
 
       const data = await res.json();
-      if (data.success) {
-        window.location.href = "/";
+      if (data && data.success) {
+        setSuccess("Login successful, redirecting...");
+        setTimeout(() => router.push("/"), 1000);
       } else {
-        setError("Google login failed");
+        setError(data?.message || "Google login failed");
       }
     } catch (error) {
       setError("An error occurred with Google login");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -216,9 +221,13 @@ function LoginWithParams() {
         <div className="text-center mt-4">
           <p className="text-sm text-green-300">Or login with:</p>
           <div className="mt-2">
-            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+          {process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ? (
+            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
               <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError("Google Login Failed")} />
             </GoogleOAuthProvider>
+            ) : (
+              <p className="text-sm text-yellow-300">Google login not configured</p>
+            )}
           </div>
         </div>
 
