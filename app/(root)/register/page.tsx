@@ -194,7 +194,7 @@ export default function Register() {
 
           <div className="text-center mt-4">
             <p className="text-sm text-green-300">Or register with:</p>
-            <div className="mt-2">
+            <div className="mt-2 flex justify-center items-center text-center px-0 py-2">
               <GoogleOAuthProvider clientId={googleClientId || ""}>
                 <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError("Google Registration Failed")} />
               </GoogleOAuthProvider>

@@ -222,7 +222,7 @@ function LoginWithParams() {
 
         <div className="text-center mt-4">
           <p className="text-sm text-green-300">Or login with:</p>
-          <div className="mt-2">
+          <div className="mt-2 flex justify-center items-center text-center px-0 py-2">
           {googleClientId ? (
             <GoogleOAuthProvider clientId={googleClientId}>
               <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError("Google Login Failed")} />
